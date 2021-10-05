@@ -51,7 +51,7 @@ def date_():
 def tell_weather():
     api_key = "1f0b96148a292aa9cf581c3aba5da199"
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
-    complete_url = base_url + "appid=" + api_key + "&q=" + "Karimganj"
+    complete_url = base_url + "appid=" + api_key + "&q=" + "your_location"
     response = requests.get(complete_url)
     x = response.json()
     if x["cod"] != "404":
@@ -63,16 +63,16 @@ def tell_weather():
         weather_description = z[0]["description"]
         celsius = float(current_temperature)- 273.15
         temperature = round(celsius)
-    speak("Current temperature in Karimganj is "+str(temperature)+"degree celsius")
+    speak("Current temperature in your_location is "+str(temperature)+"degree celsius")
 
 def begin():
     hour = datetime.datetime.now().hour
     if hour>=6 and hour <12:
-        speak("Good morning Tanisha")
+        speak("Good morning user")
     elif hour>=12 and hour<18:
-        speak("Good afternoon Tanisha")
+        speak("Good afternoon user")
     elif hour>=18 and hour<24:
-        speak("Good evening Tanisha")
+        speak("Good evening user")
     else:
         speak("Good night, wow you are still awake")
     speak("Good to see you back")
@@ -80,7 +80,7 @@ def begin():
     date_()
     time_()
     tell_weather()
-    speak("Now tell me bro,what can I do for you!!")
+    speak("Now tell me bro, what can I do for you!!")
 
 
 def takecommands():
@@ -104,8 +104,8 @@ def sendEmail(to,content):
     server = smtplib.SMTP('smtp.gmail.com',587)
     server.ehlo()
     server.starttls()
-    server.login('26tanishabanik@gmail.com','goal')
-    server.sendmail('26tanishabanik@gmail.com',to,content)
+    server.login('email-id','password')
+    server.sendmail('email-id',to,content)
     server.close()
 
 def CPUAndBattery():
@@ -144,20 +144,17 @@ if __name__ == "__main__":
                 speak("Can't send mail")
         elif 'search' in query:
             speak("What do you want to search?")
-            #chromepath = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
             search = takecommands().lower()
             url = "https://google.com/search?q=" + search
             wb.get().open(url)
         elif "play a song" in query:
             speak("Which song you wanna listen to?")
             song = input("Enter song name: ")
-            #wb.open('https://www.youtube.com/results?search_query=' + str(song))
             pywhatkit.playonyt(song)
             speak("Getting your song, relax and sit down")
-            #pywhatkit.playonyt(url)
         elif "open my github" in query:
             speak('Opening your github account.....')
-            wb.open("https://github.com/26tanishabanik/")
+            wb.open("your_github_profile")
         elif "joke" in query or "jokes" in query:
             tellJokes()
         elif "open app" in query:
